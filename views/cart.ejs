@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      padding: 20px;
+      background-color: #f2f2f2;
+      margin-bottom: 20px;
+    }
+    .cart-items {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .cart-item {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 600px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-item img {
+      max-width: 120px;
+      height: auto;
+      margin-right: 20px;
+    }
+    .cart-item h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #333;
+    }
+    .cart-item p {
+      margin: 5px 0;
+      color: #555;
+    }
+    .cart-actions {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .cart-actions a {
+      text-decoration: none;
+      color: #007BFF;
+      font-size: 16px;
+      margin-right: 20px;
+    }
+    .cart-actions button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .cart-actions button:hover {
+      background-color: #218838;
+    }
+    .try-on-button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 15px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+    .try-on-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Your Cart</h1>
+
+  <div class="cart-items">
+    <% cartItems.forEach(item => { %>
+      <div class="cart-item">
+        <img src="<%= item.clothingId.image %>" alt="<%= item.clothingId.name %>">
+        <div>
+          <h3><%= item.clothingId.name %></h3>
+          <p>Size: <%= item.size %></p>
+          <p>Price: <%= item.clothingId.price %> DNT</p>
+          <p>Quantity: <%= item.quantity %></p>
+          <!-- Add Try On button -->
+          <button class="try-on-button" onclick="tryOnItem('<%= item.clothingId._id %>')">Try On</button>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+  <div class="cart-actions">
+    <a href="/catalog">Back to Catalog</a>
+    <button>Proceed to Checkout</button>
+  </div>
+
+  <script>
+    // Function to handle Try On button click
+    function tryOnItem(itemId) {
+      // Redirect to try-on page with product ID
+      window.location.href = `/try-on/${itemId}`;
+    }
+  </script>
+
+</body>
+</html>

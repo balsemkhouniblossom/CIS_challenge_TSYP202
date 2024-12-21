@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+</head>
+<body>
+  <h1 style="text-align: center;">Welcome, <%= username %>!</h1>
+
+  <!-- Photo Upload Form -->
+  <h2>Upload a Photo</h2>
+  <form action="/upload-photo" method="POST" enctype="multipart/form-data">
+    <label for="photo">Choose a photo:</label>
+    <input type="file" name="photo" id="photo" accept="image/*" required>
+    <button type="submit">Upload</button>
+  </form>
+  
+  <a href="/catalog">Browse Clothing Catalog</a>
+
+  <!-- Display selected photo -->
+  <h2>Preview Your Photo</h2>
+  <img id="photo-preview" alt="Selected Photo" style="max-width: 300px; display: none;">
+
+  <!-- Display uploaded photo from the server -->
+  <h2>Your Uploaded Photo</h2>
+  <% if (photo) { %>
+    <img src="<%= photo %>" alt="Uploaded Photo" style="max-width: 300px;">
+  <% } else { %>
+    <p>No photo uploaded yet.</p>
+  <% } %>
+
+  <script>
+    // JavaScript to display a preview of the selected image
+    const photoInput = document.getElementById('photo');
+    const photoPreview = document.getElementById('photo-preview');
+
+    photoInput.addEventListener('change', () => {
+      const file = photoInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          photoPreview.src = e.target.result;
+          photoPreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        photoPreview.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= name %> Collection</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1><%= name %> Collection</h1>
+    <a href="/">Back to Dashboard</a>
+
+    <!-- Table for displaying data -->
+    <table>
+        <thead>
+            <tr>
+                <!-- Dynamically render the table headers based on the first item's keys -->
+                <% if (items.length > 0) { %>
+                    <% Object.keys(items[0]).forEach(function(key) { %>
+                        <th><%= key %></th>
+                    <% }); %>
+                <% } %>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Render each item as a row in the table -->
+            <% items.forEach(function(item) { %>
+                <tr>
+                    <% Object.entries(item).forEach(function([key, value]) { %>
+                        <td>
+                            <!-- Handle empty or missing fields -->
+                            <% if (value === null || value === undefined || value === '') { %>
+                                It's empty
+                            <% } else if (key === 'password') { %>
+                                <!-- Display the password as plain-text -->
+                                <%= value %>
+                            <% } else if (typeof value === 'string' && value.startsWith('/uploads/')) { %>
+                                <!-- If the field is an image URL, display the image -->
+                                <img src="<%= value %>" alt="<%= key %>" style="width: 100px; height: auto;">
+                            <% } else { %>
+                                <%= JSON.stringify(value) %>
+                            <% } %>
+                        </td>
+                    <% }); %>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

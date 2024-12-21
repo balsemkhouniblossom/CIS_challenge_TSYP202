@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalog</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      color: #333;
+    }
+
+    .catalog {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      justify-items: center;
+      margin-top: 30px;
+    }
+
+    .item {
+      background-color: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .item:hover {
+      transform: scale(1.05);
+    }
+
+    .item img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .item h3 {
+      font-size: 20px;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .item p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .item .price {
+      font-size: 18px;
+      font-weight: bold;
+      color: #e74c3c;
+      margin: 10px 0;
+    }
+
+    .item select {
+      padding: 5px;
+      margin: 10px 0;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .item button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .item button:hover {
+      background-color: #2980b9;
+    }
+
+    .cart-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 16px;
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .cart-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Clothing Catalog</h1>
+  
+  <a href="/cart" class="cart-link">Go to Cart</a>
+  <div class="catalog" id="catalog">
+    <!-- Catalog items will be dynamically loaded here -->
+    <% items.forEach(item => { %>
+      <div class="item">
+        <img src="<%= item.image %>" alt="<%= item.name %>">
+        <h3><%= item.name %></h3>
+        <p><%= item.description %></p>
+        <p class="price"><%= item.price %> DNT</p>
+        
+        <form action="/cart/add" method="POST">
+          <input type="hidden" name="clothingId" value="<%= item._id %>">
+          <select name="size">
+            <% item.size.forEach(size => { %>
+              <option value="<%= size %>"><%= size %></option>
+            <% }) %>
+          </select>
+          <button type="submit">Add to Cart</button>
+        </form>
+      </div>
+    <% }) %>
+  </div>
+
+
+</body>
+</html>

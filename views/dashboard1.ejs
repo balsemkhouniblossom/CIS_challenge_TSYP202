@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      padding: 20px;
+      background-color: #f2f2f2;
+      margin-bottom: 20px;
+    }
+    .container {
+      padding: 20px;
+    }
+    .drawer {
+      width: 250px;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #333;
+      color: white;
+      padding-top: 60px;
+    }
+    .drawer a {
+      padding: 15px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+    .drawer a:hover {
+      background-color: #575757;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .card i {
+      font-size: 48px;
+      color: #007BFF;
+    }
+    .card h3 {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #333;
+    }
+    .drawer-header {
+      text-align: center;
+      padding: 20px;
+      background-color: #007BFF;
+    }
+    .drawer-header h2 {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Drawer -->
+  <div class="drawer">
+    <div class="drawer-header">
+      <h2>Menu</h2>
+    </div>
+    <a href="#">Dashboard</a>
+    <a href="#">Settings</a>
+    <a href="#">Logout</a>
+  </div>
+
+  <div class="container">
+    <h1>Welcome to the Dashboard</h1>
+    <div class="grid">
+      <% collections.forEach(function(collection) { %>
+        <div class="card">
+          <i class="fas fa-folder"></i>
+          <h3><%= collection %></h3>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Try On</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      padding: 20px;
+      background-color: #f2f2f2;
+      margin-bottom: 20px;
+    }
+    .try-on-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      align-items: center;
+      padding: 20px;
+    }
+    .product-info {
+      text-align: center;
+      max-width: 300px;
+    }
+    .product-info img {
+      max-width: 100%;
+      height: auto;
+    }
+    .upload-form {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .upload-form input[type="file"] {
+      padding: 10px;
+    }
+    .upload-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .upload-button:hover {
+      background-color: #0056b3;
+    }
+    .photo-preview {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .photo-preview img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Try On the Product</h1>
+
+  <div class="try-on-container">
+    <!-- Product Image and Info -->
+    <div class="product-info">
+      <img src="<%= product.image %>" alt="<%= product.name %>" id="product-image">
+      <h3><%= product.name %></h3>
+      <p>Price: <%= product.price %> DNT</p>
+      <p>Size: <%= product.size %></p>
+    </div>
+
+    <!-- Upload Photo Section -->
+    <div class="upload-form">
+      <h2>Upload Your Photo to Try On</h2>
+      <form action="/upload-photo" method="POST" enctype="multipart/form-data">
+        <input type="file" name="photo" accept="image/*" required>
+        <button type="submit" class="upload-button">Upload Photo</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Display Uploaded Photo Preview -->
+  <div class="photo-preview" id="photo-preview">
+    <h2>Uploaded Photo</h2>
+    <p>Preview your uploaded photo here:</p>
+    <img src="" alt="Uploaded Photo" id="uploaded-photo" style="display:none; max-width: 300px;">
+  </div>
+
+  <script>
+    // Preview the uploaded image
+    const fileInput = document.querySelector('input[type="file"]');
+    const uploadedImage = document.getElementById('uploaded-photo');
+    const photoPreview = document.getElementById('photo-preview');
+
+    fileInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedImage.src = e.target.result;
+          uploadedImage.style.display = 'block';
+          photoPreview.style.display = 'block';  // Show photo preview section
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+
+</body>
+</html>

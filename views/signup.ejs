@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .gender-selection img {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .gender-selection img.selected {
+            border: 2px solid blue;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Sign Up</h2>
+        <form action="/signup" method="post">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required autocomplete="off">
+            </div>
+            <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
+</div>
+            
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" required>
+</div>
+            <!-- Gender Selection -->
+            <h3>Select Your Gender</h3>
+            <div class="gender-selection">
+                <label>
+                    <input type="radio" name="gender" value="male" required hidden>
+                    <img src="/images/male.png" alt="Male" onclick="selectGender(this)">
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="female" required hidden>
+                    <img src="/images/female.png" alt="Female" onclick="selectGender(this)">
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="/">Login</a></p>
+    </div>
+
+    <script>
+        // JavaScript to handle gender selection
+        function selectGender(img) {
+            // Remove the 'selected' class from all images
+            document.querySelectorAll('.gender-selection img').forEach(image => {
+                image.classList.remove('selected');
+            });
+            // Add 'selected' class to the clicked image
+            img.classList.add('selected');
+            // Check the corresponding radio button
+            img.previousElementSibling.checked = true;
+            console.log('Selected Gender:', img.previousElementSibling.value);
+
+        }
+    </script>
+
+</body>
+</html>
